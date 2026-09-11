@@ -1,17 +1,9 @@
 "use client";
-
-import React, { useState } from "react";
-import { AuthScreen } from "@/components/AuthScreen";
 import { HomeScreen } from "@/components/HomeScreen";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
-
-  if (!isLoggedIn) {
-    return <AuthScreen onLogin={() => setIsLoggedIn(true)} />;
-  }
 
   return (
     <HomeScreen
@@ -24,3 +16,4 @@ export default function Page() {
     />
   );
 }
+

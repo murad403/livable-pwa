@@ -82,15 +82,19 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
     { label: "Profile", href: "/profile", isActive: pathname.startsWith("/profile") },
   ];
 
+  const isAuthPage = pathname === "/login";
+
   if (isStandalonePwa) {
     return (
       <main className="h-dvh bg-white flex flex-col justify-between max-w-md mx-auto relative shadow-xl overflow-hidden font-sans">
         <div className="flex-1 flex flex-col overflow-y-auto no-scrollbar">
           {children}
         </div>
-        <div className="shrink-0 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)] z-30">
-          <BottomNav />
-        </div>
+        {!isAuthPage && (
+          <div className="shrink-0 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)] z-30">
+            <BottomNav />
+          </div>
+        )}
       </main>
     );
   }
@@ -149,17 +153,19 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Main Website Content Container */}
-      <main className="flex-1 max-w-md w-full mx-auto bg-white my-0 sm:my-6 sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative pb-20 sm:pb-0">
+      <main className={`flex-1 max-w-md w-full mx-auto bg-white my-0 sm:my-6 sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative ${!isAuthPage ? "pb-20 sm:pb-0" : ""}`}>
         <div className="flex-1 flex flex-col py-2">
           {children}
         </div>
 
-        {/* Bottom Tab Navigation - Fixed at bottom for mobile screens, hidden on desktop */}
-        <div className="fixed sm:hidden bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
-          <div className="max-w-md mx-auto">
-            <BottomNav />
+        {/* Bottom Tab Navigation - Fixed at bottom for mobile screens, hidden on desktop and auth page */}
+        {!isAuthPage && (
+          <div className="fixed sm:hidden bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
+            <div className="max-w-md mx-auto">
+              <BottomNav />
+            </div>
           </div>
-        </div>
+        )}
       </main>
 
       {/* PWA Install Instructions Modal */}

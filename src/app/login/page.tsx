@@ -1,9 +1,13 @@
-import React from 'react'
+"use client";
+import { AuthScreen } from "@/components/AuthScreen";
+import { useRouter } from "next/navigation";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+export default function LoginPage() {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/");
+  };
+
+  return <AuthScreen onLogin={handleLogin} />;
 }
-
-export default page
