@@ -54,16 +54,6 @@ export function TodayScreen({ onNavigate }: TodayScreenProps) {
                     <span className="text-gray-500 font-normal">Meet</span>
                     <span>Jardim das Amoreiras entrance</span>
                   </div>
-
-                  <a
-                    href="https://maps.google.com/?q=Jardim+das+Amoreiras+Lisbon"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-gray-900 underline font-medium text-[14px] hover:text-black mt-1"
-                  >
-                    <span>Open in Google Maps</span>
-                    <ExternalLink className="w-3.5 h-3.5 no-underline opacity-70" />
-                  </a>
                 </div>
               )}
             </div>

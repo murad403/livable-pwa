@@ -45,10 +45,6 @@ export function ProfileScreen() {
         <div className="grid grid-cols-[100px_1fr] gap-y-3.5 text-[15px]">
           <span className="text-gray-700 font-normal">City</span>
           <span className="text-gray-900 font-normal">Lisbon, Portugal</span>
-
-          <span className="text-gray-700 font-normal">Day</span>
-          <span className="text-gray-900 font-normal">2 of 3</span>
-
           <span className="text-gray-700 font-normal">Host</span>
           <span className="text-gray-900 font-normal">Ana Ferreira</span>
         </div>
@@ -69,16 +65,6 @@ export function ProfileScreen() {
             className="text-gray-900 underline font-normal hover:text-black"
           >
             team@livable.com
-          </a>
-
-          <span className="text-gray-700 font-normal">WhatsApp</span>
-          <a
-            href="https://wa.me/351910000000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-900 underline font-normal hover:text-black"
-          >
-            Open chat
           </a>
         </div>
       </div>
