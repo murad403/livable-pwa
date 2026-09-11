@@ -1,10 +1,9 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BottomNav } from "@/components/BottomNav";
-import { Home, Calendar, Compass, User, Download, CheckCircle2 } from "lucide-react";
+import { Download, CheckCircle2 } from "lucide-react";
 
 export function NavigationLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

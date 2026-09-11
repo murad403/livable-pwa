@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { TodayScreen } from "@/components/TodayScreen";
 import { useRouter } from "next/navigation";
 

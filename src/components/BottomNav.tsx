@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Calendar, Compass, User } from "lucide-react";
+
+export type TabType = "home" | "today" | "city-tests" | "profile";
 
 export function BottomNav() {
   const pathname = usePathname();

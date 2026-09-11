@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Download, Smartphone, Monitor, CheckCircle, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Download, Smartphone, Monitor, CheckCircle } from "lucide-react";
 import { TabType } from "./BottomNav";
 
 interface DesktopHeaderProps {

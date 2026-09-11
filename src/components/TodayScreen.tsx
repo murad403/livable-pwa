@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowRight, ChevronUp, ChevronDown, ExternalLink } from "lucide-react";
 import { TabType } from "./BottomNav";
 

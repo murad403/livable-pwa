@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { ArrowRight } from "lucide-react";
 import { TabType } from "./BottomNav";
 
