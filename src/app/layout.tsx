@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { NavigationLayout } from "@/components/NavigationLayout";
+import ReduxProvider from "@/providers/ReduxProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -43,7 +44,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className="h-full bg-gray-100 text-gray-900 antialiased selection:bg-red-500 selection:text-white">
-        <NavigationLayout>{children}</NavigationLayout>
+        <ReduxProvider>
+          <NavigationLayout>{children}</NavigationLayout>
+        </ReduxProvider>
       </body>
     </html>
   );
