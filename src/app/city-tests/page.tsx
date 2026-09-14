@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -40,9 +39,6 @@ export default function CityTestsPage() {
               <h2 className="text-[22px] font-medium tracking-tight leading-tight max-w-50">
                 Daily Food Systems
               </h2>
-              <span className="text-[12px] font-medium opacity-90 tracking-wide pt-0.5">
-                Food · 0
-              </span>
             </div>
             <p className="text-[14px] leading-snug mt-4 opacity-95 max-w-xs font-normal">
               Try cafés, markets, bakeries, and everyday meals to discover where you could imagine eating and shopping in the city.
@@ -57,7 +53,7 @@ export default function CityTestsPage() {
 
         {/* Micro-Social Free Time Card */}
         <Link
-          href="/city-tests/free-time"
+          href="/city-tests/free_time"
           className="bg-[#DFBDFF] text-gray-950 rounded-[28px] p-6 block hover:brightness-[0.98] transition-all shadow-xs relative flex-col justify-between min-h-40"
         >
           <div>
@@ -65,9 +61,6 @@ export default function CityTestsPage() {
               <h2 className="text-[22px] font-medium tracking-tight leading-tight max-w-50">
                 Micro-Social Free Time
               </h2>
-              <span className="text-[12px] font-medium opacity-90 tracking-wide pt-0.5">
-                Free Time · 1
-              </span>
             </div>
             <p className="text-[14px] leading-snug mt-4 opacity-95 max-w-xs font-normal">
               Test how you might spend an afternoon, a Saturday, or an evening if this became home.
@@ -90,9 +83,6 @@ export default function CityTestsPage() {
               <h2 className="text-[22px] font-medium tracking-tight leading-tight max-w-50">
                 Practical Infrastructure
               </h2>
-              <span className="text-[12px] font-medium opacity-90 tracking-wide pt-0.5">
-                Infrastructure · 1
-              </span>
             </div>
             <p className="text-[14px] leading-snug mt-4 opacity-95 max-w-xs font-normal">
               Run the small errands that become part of everyday life — groceries and pharmacies — and learn how the city works by trying public transit.

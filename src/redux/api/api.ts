@@ -1,6 +1,14 @@
 import { getCurrentUser } from "@/utils/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILoginRequest, ILoginResponse, IUser, ITripsResponse, ITodayResponse } from "./api.type";
+import {
+    ILoginRequest,
+    ILoginResponse,
+    IUser,
+    ITripsResponse,
+    ITodayResponse,
+    ICityTestCategory,
+    ICityTestDetail,
+} from "./api.type";
 
 
 const baseQuery = fetchBaseQuery({
@@ -59,6 +67,20 @@ const baseApi = createApi({
             }),
             providesTags: ["User"],
         }),
+        getCityTestCategory: builder.query<ICityTestCategory, string>({
+            query: (category_id) => ({
+                url: `/app/city-tests/categories/${category_id}/`,
+                method: "GET",
+            }),
+            providesTags: ["User"],
+        }),
+        getCityTestDetail: builder.query<ICityTestDetail, string>({
+            query: (test_id) => ({
+                url: `/app/city-tests/${test_id}/`,
+                method: "GET",
+            }),
+            providesTags: ["User"],
+        }),
     })
 })
 
@@ -68,6 +90,10 @@ export const {
     useUpdateProfileMutation,
     useGetTripsQuery,
     useGetTodayScheduleQuery,
+    useGetCityTestCategoryQuery,
+    useGetCityTestDetailQuery,
 } = baseApi;
 
 export default baseApi;
+
+

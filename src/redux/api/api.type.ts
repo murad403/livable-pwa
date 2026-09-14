@@ -84,3 +84,48 @@ export interface ITodayResponse {
   items: ITodayItem[];
 }
 
+export interface ICityTestSummary {
+  id: string;
+  title: string;
+  order?: number;
+  is_completed?: boolean;
+}
+
+export interface ICityTestCategory {
+  id: string;
+  name: string;
+  description: string;
+  tests: ICityTestSummary[];
+}
+
+export interface IExternalLink {
+  label: string;
+  url: string;
+}
+
+export interface IPreviousSubmission {
+  notes?: string | null;
+  question_for_liv_team?: string | null;
+  submitted_at?: string | null;
+}
+
+export interface ICityTestDetail {
+  id: string;
+  category_id: string;
+  title: string;
+  city?: string | null;
+  short_description?: string | null;
+  google_maps_link?: string | null;
+  external_links?: IExternalLink[] | null;
+  note_prompts?: string[] | null;
+  question_prompts?: string[] | null;
+  previous_submission?: IPreviousSubmission | null;
+}
+
+export interface ISubmitCityTestRequest {
+  test_id: string;
+  notes: string;
+  question_for_liv_team?: string;
+}
+
+

@@ -1,47 +1,14 @@
 "use client";
-import { use, useState } from "react";
+
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { useGetCityTestDetailQuery } from "@/redux/api/api";
 
 interface TestDetailPageProps {
   params: Promise<{ category: string; id: string }>;
 }
-
-const moduleDetails: Record<string, any> = {
-  "everyday-lunch": {
-    categoryCode: "City Test • Daily Food Systems 01",
-    title: "Everyday Lunch",
-    description: [
-      "Menús del día are traditional set lunches that usually cost €12–15 for two or three courses, often including a drink.",
-      "Most authentic spots post the day’s menu on a chalkboard outside.",
-      "Search “menú del día” in Google Maps, or choose one of our verified neighborhood favorites below.",
-      "Observe the ratio of locals to tourists while you eat."
-    ],
-    searchLinks: [
-      "Search 'menú del día' nearby",
-      "Search 'menú del día' nearby",
-      "Search 'menú del día' nearby"
-    ],
-    notesPlaceholder: "Price...\nMostly locals...\nTried...",
-    questionsPlaceholder: "Typical price for this neighborhood? · Did we handle the tipping etiquette correctly? · Any similar local spots nearby?"
-  },
-  "bakery-run": {
-    categoryCode: "City Test • Daily Food Systems 02",
-    title: "Bakery Run",
-    description: [
-      "Visit a neighborhood padaria in the morning between 8:00 AM and 10:00 AM.",
-      "Try a fresh pão de Deus or torrada (toasted bread with butter) alongside a meia de leite (milky coffee).",
-      "Pay attention to how locals interact with the counter staff and how fast the morning queue moves."
-    ],
-    searchLinks: [
-      "Search 'padaria tradicional' nearby",
-      "Search 'pastelaria' nearby"
-    ],
-    notesPlaceholder: "Tried fresh pão de Deus...\nVery fast service...",
-    questionsPlaceholder: "What is the customary greeting when walking into a small neighborhood bakery?"
-  }
-};
 
 export default function TestDetailPage({ params }: TestDetailPageProps) {
   const resolvedParams = use(params);
@@ -49,18 +16,62 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
   const catKey = resolvedParams.category;
   const modKey = resolvedParams.id;
 
-  const currentModule = moduleDetails[modKey] || moduleDetails["everyday-lunch"];
+  const { data: testData, isLoading, isError, refetch } = useGetCityTestDetailQuery(modKey);
 
   const [notesText, setNotesText] = useState("");
   const [questionsText, setQuestionsText] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
 
+  useEffect(() => {
+    if (testData?.previous_submission) {
+      if (testData.previous_submission.notes) {
+        setNotesText(testData.previous_submission.notes);
+      }
+      if (testData.previous_submission.question_for_liv_team) {
+        setQuestionsText(testData.previous_submission.question_for_liv_team);
+      }
+    }
+  }, [testData]);
+
   const handleCompleteTest = () => {
     setIsCompleted(true);
     setTimeout(() => {
       router.push(`/city-tests/${catKey}`);
-    }, 1200);
+    }, 1000);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center p-8 bg-white max-w-md mx-auto w-full min-h-100">
+        <Loader2 className="w-8 h-8 text-[#FF3B30] animate-spin mb-3" />
+        <p className="text-sm font-medium text-gray-500">Loading test details...</p>
+      </div>
+    );
+  }
+
+  if (isError || !testData) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center p-8 bg-white max-w-md mx-auto w-full min-h-100 text-center space-y-4">
+        <p className="text-sm font-medium text-red-600">Failed to load test details.</p>
+        <button
+          onClick={() => refetch()}
+          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-[#e03126] transition-all cursor-pointer"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  const notesPlaceholder = testData.note_prompts?.length
+    ? testData.note_prompts.join("\n")
+    : "Price...\nMostly locals...\nTried...";
+
+  const questionsPlaceholder = testData.question_prompts?.length
+    ? testData.question_prompts.join(" · ")
+    : "Questions for the Liv Team...";
+
+  const hasLinks = Boolean(testData.google_maps_link || (testData.external_links && testData.external_links.length > 0));
 
   return (
     <div className="flex-1 flex flex-col px-5 pt-4 pb-8 bg-white max-w-md mx-auto w-full space-y-6">
@@ -72,40 +83,54 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
         <ArrowLeft className="w-5 h-5 stroke-2" />
       </Link>
 
-      {/* Category breadcrumb */}
+      {/* Category breadcrumb & Title */}
       <div>
-        <span className="text-[13px] font-medium text-gray-600">
-          {currentModule.categoryCode}
+        <span className="text-[13px] font-medium text-gray-600 capitalize">
+          City Test • {testData.category_id || catKey}
         </span>
         <h1 className="text-[38px] leading-tight font-bold tracking-tight text-gray-900 mt-1">
-          {currentModule.title}
+          {testData.title}
         </h1>
       </div>
 
-      {/* Description Paragraphs */}
-      <div className="space-y-4 text-[15px] leading-relaxed text-gray-800 font-normal">
-        {currentModule.description.map((p: string, idx: number) => (
-          <p key={idx}>{p}</p>
-        ))}
-      </div>
+      {/* Description */}
+      {testData.short_description && (
+        <div className="space-y-4 text-[15px] leading-relaxed text-gray-800 font-normal">
+          <p>{testData.short_description}</p>
+        </div>
+      )}
 
-      {/* Search Links */}
-      <div className="space-y-2 pt-2 border-b border-gray-100 pb-6">
-        {currentModule.searchLinks.map((linkText: string, idx: number) => (
-          <a
-            key={idx}
-            href={`https://maps.google.com/?q=${encodeURIComponent(linkText)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[14px] text-gray-900 underline font-normal hover:text-black"
-          >
-            <span>{linkText}</span>
-            <ArrowRight className="w-3.5 h-3.5 no-underline" />
-          </a>
-        ))}
-      </div>
+      {/* Links (Google Maps & External Links) */}
+      {hasLinks && (
+        <div className="space-y-2.5 pt-2 border-b border-gray-100 pb-6">
+          {testData.google_maps_link && (
+            <a
+              href={testData.google_maps_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[14px] text-gray-900 underline font-medium hover:text-black"
+            >
+              <span>View on Google Maps</span>
+              <ArrowRight className="w-3.5 h-3.5 no-underline" />
+            </a>
+          )}
 
-      {/* Post-Discovery Notes */}
+          {testData.external_links?.map((link, idx) => (
+            <a
+              key={idx}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[14px] text-gray-900 underline font-medium hover:text-black"
+            >
+              <span>{link.label}</span>
+              <ArrowRight className="w-3.5 h-3.5 no-underline" />
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Post-Discovery Notes Form */}
       <div className="space-y-4 pt-2">
         <div>
           <h2 className="text-[22px] font-semibold tracking-tight text-gray-900">
@@ -121,10 +146,25 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
           <label className="text-[14px] font-medium text-gray-800 block">
             Notes & Observations
           </label>
+
+          {/* Note Prompts */}
+          {testData.note_prompts && testData.note_prompts.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 py-1">
+              {testData.note_prompts.map((prompt, idx) => (
+                <span
+                  key={idx}
+                  className="text-[12px] bg-gray-100 text-gray-700 px-2.5 py-1 rounded-lg font-medium"
+                >
+                  {prompt}
+                </span>
+              ))}
+            </div>
+          )}
+
           <textarea
             value={notesText}
             onChange={(e) => setNotesText(e.target.value)}
-            placeholder={currentModule.notesPlaceholder}
+            placeholder={notesPlaceholder}
             className="w-full h-32 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[14px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
           />
         </div>
@@ -134,10 +174,23 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
           <label className="text-[14px] font-medium text-gray-800 block">
             Questions for the Liv Team (Optional):
           </label>
+
+          {/* Question Prompts */}
+          {testData.question_prompts && testData.question_prompts.length > 0 && (
+            <div className="space-y-1 py-1">
+              {testData.question_prompts.map((prompt, idx) => (
+                <div key={idx} className="text-[12.5px] text-gray-600 flex items-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] shrink-0 mt-1.5" />
+                  <span>{prompt}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
           <textarea
             value={questionsText}
             onChange={(e) => setQuestionsText(e.target.value)}
-            placeholder={currentModule.questionsPlaceholder}
+            placeholder={questionsPlaceholder}
             className="w-full h-28 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[13.5px] leading-relaxed text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
           />
         </div>
@@ -146,7 +199,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
         <div className="pt-4">
           <button
             onClick={handleCompleteTest}
-            className="w-full bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 uppercase transition-all shadow-xs"
+            className="w-full bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 uppercase transition-all shadow-xs cursor-pointer"
           >
             {isCompleted ? (
               <>
