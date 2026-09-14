@@ -145,9 +145,6 @@ export default function LoginPage() {
           )}
         </button>
       </form>
-
-      {/* Footer spacer */}
-      <div className="h-4" />
     </div>
   );
 }
