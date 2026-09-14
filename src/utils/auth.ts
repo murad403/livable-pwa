@@ -16,6 +16,8 @@ export const getCurrentUser = async (): Promise<{ access: string | undefined; re
 
 export const removeToken = async () => {
   const cookieStore = await cookies();
-  cookieStore.delete("access");
-  cookieStore.delete("refresh");
+  cookieStore.delete({ name: "access", path: "/" });
+  cookieStore.delete({ name: "refresh", path: "/" });
+  cookieStore.set("access", "", { path: "/", maxAge: 0 });
+  cookieStore.set("refresh", "", { path: "/", maxAge: 0 });
 }

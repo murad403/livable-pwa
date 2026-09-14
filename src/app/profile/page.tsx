@@ -2,12 +2,21 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Pencil, Check, X, Loader2, Camera, Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Pencil, Check, X, Loader2, Camera, Lock, LogOut } from "lucide-react";
 import { useGetProfileQuery, useUpdateProfileMutation } from "@/redux/api/api";
+import { removeToken } from "@/utils/auth";
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { data: user, isLoading, isError, refetch } = useGetProfileQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+
+  const handleLogout = async () => {
+    await removeToken();
+    router.push("/login");
+    router.refresh();
+  };
 
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -134,11 +143,10 @@ export default function ProfilePage() {
 
       {feedbackMsg && (
         <div
-          className={`p-3 rounded-2xl text-xs font-medium border flex items-center gap-2 ${
-            feedbackMsg.type === "success"
+          className={`p-3 rounded-2xl text-xs font-medium border flex items-center gap-2 ${feedbackMsg.type === "success"
               ? "bg-green-50 border-green-200 text-green-700"
               : "bg-red-50 border-red-200 text-red-600"
-          }`}
+            }`}
         >
           {feedbackMsg.type === "success" ? (
             <Check className="w-4 h-4 text-green-600 shrink-0" />
@@ -329,6 +337,19 @@ export default function ProfilePage() {
             team@livable.com
           </a>
         </div>
+      </div>
+
+      <div className="border-b border-gray-200/80 -mx-5 px-5" />
+
+      {/* Logout Action */}
+      <div className="pt-2">
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-semibold py-3.5 px-6 rounded-full flex items-center justify-center gap-2 transition-all cursor-pointer text-sm shadow-xs"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Log Out</span>
+        </button>
       </div>
     </div>
   );

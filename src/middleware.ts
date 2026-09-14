@@ -8,16 +8,17 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("access")?.value;
 
+  const hasToken = Boolean(token && token !== "undefined" && token !== "null" && token.trim() !== "");
   const isAuthRoute = authRoutes.some((route) => pathname === route || pathname.startsWith(route));
 
   // If user is NOT authenticated and trying to access a protected route
-  if (!token && !isAuthRoute) {
+  if (!hasToken && !isAuthRoute) {
     const loginUrl = new URL("/login", request.url);
     return NextResponse.redirect(loginUrl);
   }
 
   // If user IS authenticated and trying to access an auth route (like /login)
-  if (token && isAuthRoute) {
+  if (hasToken && isAuthRoute) {
     const homeUrl = new URL("/", request.url);
     return NextResponse.redirect(homeUrl);
   }
