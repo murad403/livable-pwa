@@ -8,6 +8,8 @@ import {
     ITodayResponse,
     ICityTestCategory,
     ICityTestDetail,
+    ISaveCityTestRequest,
+    ISaveCityTestResponse,
 } from "./api.type";
 
 
@@ -81,6 +83,14 @@ const baseApi = createApi({
             }),
             providesTags: ["User"],
         }),
+        saveCityTest: builder.mutation<ISaveCityTestResponse, ISaveCityTestRequest>({
+            query: ({ test_id, notes, question_for_liv_team }) => ({
+                url: `/app/city-tests/${test_id}/save/`,
+                method: "POST",
+                body: { notes, question_for_liv_team },
+            }),
+            invalidatesTags: ["User"],
+        }),
     })
 })
 
@@ -92,8 +102,10 @@ export const {
     useGetTodayScheduleQuery,
     useGetCityTestCategoryQuery,
     useGetCityTestDetailQuery,
+    useSaveCityTestMutation,
 } = baseApi;
 
 export default baseApi;
+
 
 

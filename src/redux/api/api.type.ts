@@ -122,10 +122,17 @@ export interface ICityTestDetail {
   previous_submission?: IPreviousSubmission | null;
 }
 
-export interface ISubmitCityTestRequest {
+export interface ISaveCityTestRequest {
   test_id: string;
   notes: string;
   question_for_liv_team?: string;
 }
+
+export interface ISaveCityTestResponse {
+  message?: string;
+  status?: string;
+  [key: string]: any;
+}
+
 
 

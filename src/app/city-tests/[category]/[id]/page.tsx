@@ -4,7 +4,7 @@ import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
-import { useGetCityTestDetailQuery } from "@/redux/api/api";
+import { useGetCityTestDetailQuery, useSaveCityTestMutation } from "@/redux/api/api";
 
 interface TestDetailPageProps {
   params: Promise<{ category: string; id: string }>;
@@ -17,6 +17,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
   const modKey = resolvedParams.id;
 
   const { data: testData, isLoading, isError, refetch } = useGetCityTestDetailQuery(modKey);
+  const [saveCityTest, { isLoading: isSaving }] = useSaveCityTestMutation();
 
   const [notesText, setNotesText] = useState("");
   const [questionsText, setQuestionsText] = useState("");
@@ -33,11 +34,21 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
     }
   }, [testData]);
 
-  const handleCompleteTest = () => {
-    setIsCompleted(true);
-    setTimeout(() => {
-      router.push(`/city-tests/${catKey}`);
-    }, 1000);
+  const handleCompleteTest = async () => {
+    try {
+      await saveCityTest({
+        test_id: modKey,
+        notes: notesText,
+        question_for_liv_team: questionsText,
+      }).unwrap();
+    } catch (err) {
+      console.error("Failed to save city test:", err);
+    } finally {
+      setIsCompleted(true);
+      setTimeout(() => {
+        router.push(`/city-tests/${catKey}`);
+      }, 1000);
+    }
   };
 
   if (isLoading) {
@@ -199,9 +210,15 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
         <div className="pt-4">
           <button
             onClick={handleCompleteTest}
-            className="w-full bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 uppercase transition-all shadow-xs cursor-pointer"
+            disabled={isSaving}
+            className="w-full bg-[#FF3B30] hover:bg-[#e03126] disabled:opacity-75 text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 uppercase transition-all shadow-xs cursor-pointer"
           >
-            {isCompleted ? (
+            {isSaving ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>SAVING...</span>
+              </>
+            ) : isCompleted ? (
               <>
                 <CheckCircle2 className="w-5 h-5" />
                 <span>TEST COMPLETED!</span>
@@ -215,3 +232,4 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
     </div>
   );
 }
+
