@@ -1,17 +1,61 @@
 "use client";
-
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useLoginMutation } from "@/redux/api/api";
+import { saveToken } from "@/utils/auth";
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email address is required")
+    .email("Please enter a valid email address"),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("your@email.com");
-  const [password, setPassword] = useState("........");
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push("/");
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "mahmudtasin028@gmail.com",
+      password: "newpassword123",
+    },
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    setApiError(null);
+    try {
+      const res = await login(data).unwrap();
+
+      if (res?.access && res?.refresh) {
+        await saveToken(res.access, res.refresh);
+        router.push("/");
+        router.refresh();
+      } else {
+        setApiError("Authentication failed. Invalid response from server.");
+      }
+    } catch (err: any) {
+      console.error("Login failed:", err);
+      const errorMessage =
+        err?.data?.detail ||
+        err?.data?.message ||
+        err?.data?.non_field_errors?.[0] ||
+        "Invalid email or password. Please try again.";
+      setApiError(errorMessage);
+    }
   };
 
   return (
@@ -35,19 +79,31 @@ export default function LoginPage() {
       </div>
 
       {/* Form Section */}
-      <form onSubmit={handleSubmit} className="w-full space-y-5 my-auto pt-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-5 my-auto pt-8">
+        {apiError && (
+          <div className="p-3.5 bg-red-50 border border-red-200 rounded-[18px] text-red-600 text-xs flex items-center gap-2 font-medium animate-in fade-in-50">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+            <span>{apiError}</span>
+          </div>
+        )}
+
         <div>
           <label className="block text-[15px] font-medium text-gray-800 mb-2">
             Email address
           </label>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3.5 border border-gray-200 rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white"
+            {...register("email")}
+            disabled={isLoading}
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-200"
+              }`}
             placeholder="your@email.com"
-            required
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -56,20 +112,35 @@ export default function LoginPage() {
           </label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3.5 border border-gray-200 rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest"
+            {...register("password")}
+            disabled={isLoading}
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest ${errors.password ? "border-red-500 bg-red-50/20" : "border-gray-200"
+              }`}
             placeholder="••••••••"
-            required
           />
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         <button
           type="submit"
-          className="w-full mt-6 bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 transition-all transform active:scale-[0.98] shadow-sm uppercase"
+          disabled={isLoading}
+          className="w-full mt-6 bg-[#FF3B30] hover:bg-[#e03126] disabled:opacity-75 disabled:cursor-not-allowed text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 transition-all transform active:scale-[0.98] shadow-sm uppercase cursor-pointer"
         >
-          <span>LETS GET STARTED</span>
-          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <span>SIGNING IN...</span>
+            </>
+          ) : (
+            <>
+              <span>LET&apos;S GET STARTED</span>
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </>
+          )}
         </button>
       </form>
 

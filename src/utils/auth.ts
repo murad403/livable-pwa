@@ -1,12 +1,10 @@
 "use server";
 import { cookies } from "next/headers"
 
-export const saveToken = async (access: string, refresh?: string): Promise<void> => {
+export const saveToken = async (access: string, refresh: string): Promise<void> => {
   const cookieStore = await cookies();
-  cookieStore.set("access", access);
-  if (refresh) {
-    cookieStore.set("refresh", refresh);
-  }
+  cookieStore.set("access", access, { path: "/" });
+  cookieStore.set("refresh", refresh, { path: "/" });
 }
 
 export const getCurrentUser = async (): Promise<{ access: string | undefined; refresh: string | undefined }> => {

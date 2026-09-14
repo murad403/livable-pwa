@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/utils/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ILoginRequest, ILoginResponse } from "./api.type";
 
 
 const baseQuery = fetchBaseQuery({
@@ -20,10 +21,10 @@ const baseApi = createApi({
     baseQuery: baseQuery,
     tagTypes: [],
     endpoints: (builder) => ({
-        bookTalkWithUs: builder.mutation({
+        login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (data) => {
                 return {
-                    url: "/anonymous/book/",
+                    url: "/auth/login/",
                     method: "POST",
                     body: data
                 }
@@ -31,5 +32,7 @@ const baseApi = createApi({
         }),
     })
 })
+
+export const { useLoginMutation } = baseApi;
 
 export default baseApi;
