@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/utils/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILoginRequest, ILoginResponse, IUser, ITripsResponse } from "./api.type";
+import { ILoginRequest, ILoginResponse, IUser, ITripsResponse, ITodayResponse } from "./api.type";
 
 
 const baseQuery = fetchBaseQuery({
@@ -52,9 +52,22 @@ const baseApi = createApi({
             }),
             providesTags: ["User"],
         }),
+        getTodaySchedule: builder.query<ITodayResponse, string | void>({
+            query: (date) => ({
+                url: `/app/today/?date=${date}`,
+                method: "GET",
+            }),
+            providesTags: ["User"],
+        }),
     })
 })
 
-export const { useLoginMutation, useGetProfileQuery, useUpdateProfileMutation, useGetTripsQuery } = baseApi;
+export const {
+    useLoginMutation,
+    useGetProfileQuery,
+    useUpdateProfileMutation,
+    useGetTripsQuery,
+    useGetTodayScheduleQuery,
+} = baseApi;
 
 export default baseApi;

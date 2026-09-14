@@ -51,3 +51,36 @@ export interface ITripsResponse {
   total: number;
   trips: ITrip[];
 }
+
+export interface ITodayDetails {
+  description?: string | null;
+  host_name?: string | null;
+  meeting_point?: string | null;
+  what_to_bring?: string | null;
+  google_maps_link?: string | null;
+  restaurant_link?: string | null;
+  phone?: string | null;
+  website?: string | null;
+  reminder?: string | null;
+}
+
+export interface ITodayItem {
+  id: string;
+  start_time: string;
+  end_time?: string | null;
+  title: string;
+  type?: string;
+  short_description?: string;
+  is_expandable?: boolean;
+  details?: ITodayDetails | null;
+}
+
+export interface ITodayResponse {
+  client_name?: string;
+  greeting?: string;
+  subtitle?: string;
+  day_number?: number;
+  date?: string;
+  items: ITodayItem[];
+}
+
