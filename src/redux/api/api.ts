@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/utils/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILoginRequest, ILoginResponse, IUser } from "./api.type";
+import { ILoginRequest, ILoginResponse, IUser, ITripsResponse } from "./api.type";
 
 
 const baseQuery = fetchBaseQuery({
@@ -45,9 +45,16 @@ const baseApi = createApi({
             }),
             invalidatesTags: ["User"],
         }),
+        getTrips: builder.query<ITripsResponse, void>({
+            query: () => ({
+                url: "/me/trips/",
+                method: "GET",
+            }),
+            providesTags: ["User"],
+        }),
     })
 })
 
-export const { useLoginMutation, useGetProfileQuery, useUpdateProfileMutation } = baseApi;
+export const { useLoginMutation, useGetProfileQuery, useUpdateProfileMutation, useGetTripsQuery } = baseApi;
 
 export default baseApi;

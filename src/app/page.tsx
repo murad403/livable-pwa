@@ -1,16 +1,34 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useGetProfileQuery } from "@/redux/api/api";
 
 export default function Page() {
+  const { data: user } = useGetProfileQuery();
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const dateStr = new Date().toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+    setFormattedDate(`Day 2 — ${dateStr}`);
+  }, []);
+
+  const userName = `${user?.first_name} ${user?.last_name}`;
+
   return (
     <div className="flex-1 flex flex-col px-5 pt-4 pb-8 bg-white max-w-md mx-auto w-full space-y-6">
       {/* Top Header */}
       <div>
-        <p className="text-sm font-medium text-gray-700">Day 2 — Friday 21 August</p>
+        <p className="text-sm font-medium text-gray-700">
+          {formattedDate}
+        </p>
         <h1 className="text-[40px] leading-tight font-normal tracking-tight text-gray-900 mt-1">
-          Hello, Sarah
+          Hello, {userName}
         </h1>
       </div>
 

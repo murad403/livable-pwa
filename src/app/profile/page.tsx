@@ -4,13 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Pencil, Check, X, Loader2, Camera, Lock, LogOut } from "lucide-react";
-import { useGetProfileQuery, useUpdateProfileMutation } from "@/redux/api/api";
+import { useGetProfileQuery, useUpdateProfileMutation, useGetTripsQuery } from "@/redux/api/api";
 import { removeToken } from "@/utils/auth";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { data: user, isLoading, isError, refetch } = useGetProfileQuery();
+  const { data: tripsData } = useGetTripsQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+
+  const currentTrip = tripsData?.trips?.[0];
 
   const handleLogout = async () => {
     await removeToken();
@@ -314,9 +317,9 @@ export default function ProfilePage() {
 
         <div className="grid grid-cols-[100px_1fr] gap-y-3.5 text-[15px]">
           <span className="text-gray-700 font-normal">City</span>
-          <span className="text-gray-900 font-normal">Lisbon, Portugal</span>
+          <span className="text-gray-900 font-normal">{currentTrip?.city || "Lisbon, Portugal"}</span>
           <span className="text-gray-700 font-normal">Host</span>
-          <span className="text-gray-900 font-normal">Ana Ferreira</span>
+          <span className="text-gray-900 font-normal">{currentTrip?.guide_name || "Ana Ferreira"}</span>
         </div>
       </div>
 

@@ -3,20 +3,24 @@
 import { useState } from "react";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useGetProfileQuery } from "@/redux/api/api";
 
 export default function TodayPage() {
+  const { data: user } = useGetProfileQuery();
   const [expandedId, setExpandedId] = useState<string | null>("09:00");
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
+  const userName = user?.first_name || "Sarah";
+
   return (
     <div className="flex-1 flex flex-col px-5 pt-4 pb-8 bg-white max-w-md mx-auto w-full space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-[38px] leading-tight font-normal tracking-tight text-gray-900">
-          Good morning, Sarah.
+          Good morning, {userName}.
         </h1>
         <p className="text-base text-gray-700 mt-2 font-normal">
           Here&apos;s what&apos;s planned for today.
