@@ -25,3 +25,9 @@ export interface IApiErrorResponse {
   non_field_errors?: string[];
   [key: string]: any;
 }
+
+export interface IUpdateProfileRequest {
+  first_name?: string;
+  last_name?: string;
+  image?: File | string | null;
+}

@@ -102,58 +102,60 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900 selection:bg-[#FF3B30] selection:text-white">
       {/* Website Top Header Bar */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#FF3B30] text-white font-bold flex items-center justify-center text-base">
-              L
-            </div>
-            <h1 className="text-xl font-semibold tracking-tight text-gray-900 leading-none">
-              Livable<span className="text-xs font-normal align-top">™</span>
-            </h1>
-          </Link>
+      {!isAuthPage && (
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#FF3B30] text-white font-bold flex items-center justify-center text-base">
+                L
+              </div>
+              <h1 className="text-xl font-semibold tracking-tight text-gray-900 leading-none">
+                Livable<span className="text-xs font-normal align-top">™</span>
+              </h1>
+            </Link>
 
-          {/* Navigation Links */}
-          <nav className="flex items-center gap-1 bg-gray-100 p-1 rounded-full border border-gray-200">
-            {navTabs.map((tab) => (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  tab.isActive
-                    ? "bg-[#FF3B30] text-white shadow-xs"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                <span>{tab.label}</span>
-              </Link>
-            ))}
-          </nav>
+            {/* Navigation Links */}
+            <nav className="flex items-center gap-1 bg-gray-100 p-1 rounded-full border border-gray-200">
+              {navTabs.map((tab) => (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    tab.isActive
+                      ? "bg-[#FF3B30] text-white shadow-xs"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                </Link>
+              ))}
+            </nav>
 
-          {/* PWA Download Button */}
-          <button
-            onClick={handleInstallClick}
-            className="flex items-center gap-1.5 bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium px-4 py-2 rounded-full text-xs transition-all shadow-xs cursor-pointer active:scale-95 ml-2"
-            title="Download & Install App (PWA)"
-          >
-            {isInstalled ? (
-              <>
-                <CheckCircle2 className="w-4 h-4 text-white" />
-                <span>App Installed</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4 stroke-[2.2]" />
-                <span className="hidden sm:inline font-semibold">Install App (PWA)</span>
-                <span className="sm:hidden font-semibold">Install</span>
-              </>
-            )}
-          </button>
-        </div>
-      </header>
+            {/* PWA Download Button */}
+            <button
+              onClick={handleInstallClick}
+              className="flex items-center gap-1.5 bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium px-4 py-2 rounded-full text-xs transition-all shadow-xs cursor-pointer active:scale-95 ml-2"
+              title="Download & Install App (PWA)"
+            >
+              {isInstalled ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-white" />
+                  <span>App Installed</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 stroke-[2.2]" />
+                  <span className="hidden sm:inline font-semibold">Install App (PWA)</span>
+                  <span className="sm:hidden font-semibold">Install</span>
+                </>
+              )}
+            </button>
+          </div>
+        </header>
+      )}
 
       {/* Main Website Content Container */}
-      <main className={`flex-1 max-w-md w-full mx-auto bg-white my-0 sm:my-6 sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative ${!isAuthPage ? "pb-20 sm:pb-0" : ""}`}>
+      <main className={`flex-1 max-w-md w-full mx-auto bg-white rounded-none sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative ${!isAuthPage ? "my-0 sm:my-6 pb-20 sm:pb-0" : "my-auto"}`}>
         <div className="flex-1 flex flex-col py-2">
           {children}
         </div>

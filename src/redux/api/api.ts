@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/utils/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILoginRequest, ILoginResponse } from "./api.type";
+import { ILoginRequest, ILoginResponse, IUser } from "./api.type";
 
 
 const baseQuery = fetchBaseQuery({
@@ -19,7 +19,7 @@ const baseQuery = fetchBaseQuery({
 const baseApi = createApi({
     reducerPath: "baseApi",
     baseQuery: baseQuery,
-    tagTypes: [],
+    tagTypes: ["User"],
     endpoints: (builder) => ({
         login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (data) => {
@@ -30,9 +30,24 @@ const baseApi = createApi({
                 }
             }
         }),
+        getProfile: builder.query<IUser, void>({
+            query: () => ({
+                url: "/auth/me/",
+                method: "GET",
+            }),
+            providesTags: ["User"],
+        }),
+        updateProfile: builder.mutation<IUser, FormData | Partial<IUser>>({
+            query: (data) => ({
+                url: "/auth/me/",
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["User"],
+        }),
     })
 })
 
-export const { useLoginMutation } = baseApi;
+export const { useLoginMutation, useGetProfileQuery, useUpdateProfileMutation } = baseApi;
 
 export default baseApi;
