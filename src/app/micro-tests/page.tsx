@@ -18,8 +18,9 @@ export default function MicroTestsPage() {
 
       {/* Title */}
       <div>
-        <h1 className="text-[34px] leading-tight font-normal tracking-tight text-gray-900">
-          Discovery Micro-Tests
+        <h1 className="text-[34px] leading-tight font-medium tracking-tight text-black">
+          Lets put Micro-Tests on the second line so the word isn't broken in two" was my comment to you, not the title of the screen.  The title of the screen is: <br />
+          Discovery Mico-Tests
         </h1>
 
         <div className="space-y-3 text-[14.5px] leading-relaxed text-gray-800 font-normal mt-4">
@@ -32,7 +33,7 @@ export default function MicroTestsPage() {
         </div>
       </div>
 
-      {/* Accordion Cards (Matches Screenshot 4) */}
+      {/* Accordion Cards */}
       <div className="space-y-4 pt-2">
         {/* Card 1: Social Infrastructure (Purple) */}
         <div className="border border-gray-200/90 rounded-3xl p-5 bg-white shadow-xs">
@@ -55,20 +56,20 @@ export default function MicroTestsPage() {
           </div>
 
           {expandedCard === "social" && (
-            <div className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5">
-              <p>
+            <ul className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5 list-disc pl-4">
+              <li>
                 <span className="font-semibold">01. After-Work Drinks:</span> Find a crowded sidewalk bar or neighborhood bodega at 7:30 PM to map out where local professionals decompress.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">02. Live Music Check:</span> Locate a jazz cellar, fado house, or small indie music venue to sample the city&apos;s evening cultural depth.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">03. Book a Class:</span> Enroll in a one-off fitness, language, or cooking workshop to test how easy it is to enter a local learning environment.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">04. Open Studio Walk:</span> Locate a hidden gallery corridor or creative workspace street to check the active footprint of local working artists and see if they have an ongoing events list.
-              </p>
-            </div>
+              </li>
+            </ul>
           )}
         </div>
 
@@ -93,20 +94,20 @@ export default function MicroTestsPage() {
           </div>
 
           {expandedCard === "wellness" && (
-            <div className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5">
-              <p>
+            <ul className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5 list-disc pl-4">
+              <li>
                 <span className="font-semibold">05. Try Padel:</span> Book a court at a local racket club via the Playtomic app to experience the ultimate Iberian community sports scene.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">06. Test the Gym Vibe:</span> Get a day pass at a local training gym or group fitness studio to gauge the local health and community energy.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">07. Get on the Water:</span> Rent a kayak, book a sailing slip, or find a coastal ferry to cross the bay or river and see the city from the water.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">08. The Scenic Path:</span> Ditch the main roads to map a dedicated running or cycling route that locals use for their daily morning workouts.
-              </p>
-            </div>
+              </li>
+            </ul>
           )}
         </div>
 
@@ -131,23 +132,24 @@ export default function MicroTestsPage() {
           </div>
 
           {expandedCard === "civic" && (
-            <div className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5">
-              <p>
+            <ul className="mt-4 space-y-3.5 text-[13.5px] leading-relaxed text-gray-800 font-normal border-t border-gray-100 pt-3.5 list-disc pl-4">
+              <li>
                 <span className="font-semibold">09. The Dog Park Test:</span> Visit a community pet zone or green square to watch neighborhood residents interact and connect over their animals.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">10. The Central Library:</span> Spend an hour in the main public reading room to evaluate the city&apos;s quiet working infrastructure and civic spaces.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">11. The Hardware Store:</span> Visit a small, packed neighborhood ferreteria or loja de ferragens to purchase a baseline household item.
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">12. Find Your Wine Shop:</span> Browse a dedicated local bottle shop (vinoteca or garrafeira) to check regional imports and chat with the merchant.
-              </p>
-            </div>
+              </li>
+            </ul>
           )}
         </div>
       </div>
     </div>
   );
 }
+
