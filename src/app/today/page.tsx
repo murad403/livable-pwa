@@ -6,7 +6,7 @@ import { useGetTodayScheduleQuery, useGetProfileQuery } from "@/redux/api/api";
 
 export default function TodayPage() {
   const { data: user } = useGetProfileQuery();
-  
+
   const now = new Date();
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -33,19 +33,15 @@ export default function TodayPage() {
     );
   }
 
-  if (isError) {
-    return (
-      <div className="flex-1 flex flex-col items-center justify-center p-8 bg-white max-w-md mx-auto w-full min-h-100 text-center space-y-4">
-        <p className="text-sm font-medium text-red-600">Failed to load schedule.</p>
-        <button
-          onClick={() => refetch()}
-          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-[#e03126] transition-all cursor-pointer"
-        >
-          Try Again
-        </button>
-      </div>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <div className="max-w-md mx-auto w-full flex flex-col px-5 justify-center items-center h-full">
+  //       <div className="text-center py-12 text-gray-500 text-sm font-normal border border-dashed border-gray-200 rounded-3xl p-6">
+  //         No schedule items found for today.
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   const items = todayData?.items || [];
 
@@ -63,7 +59,7 @@ export default function TodayPage() {
 
       {/* Timeline List */}
       <div className="space-y-4">
-        {items.length === 0 ? (
+        {items.length === 0 || isError ? (
           <div className="text-center py-12 text-gray-500 text-sm font-normal border border-dashed border-gray-200 rounded-3xl p-6">
             No schedule items found for today.
           </div>
