@@ -212,6 +212,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
           <Button
             onClick={handleCompleteTest}
             disabled={isSaving}
+            className="w-full"
           >
             {isSaving ? (
               <>
