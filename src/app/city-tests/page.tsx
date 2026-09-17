@@ -7,7 +7,7 @@ export default function CityTestsPage() {
       {/* Title */}
       <div className="text-center">
         <h1 className="text-[32px] leading-tight font-normal tracking-tight text-gray-900 flex items-start justify-center gap-0.5">
-          Livable City Tests<span className="text-xs font-normal align-top mt-1">™</span>
+          Livable City Tests™
         </h1>
       </div>
 

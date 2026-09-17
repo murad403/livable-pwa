@@ -3,14 +3,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BottomNav } from "@/components/BottomNav";
-import { Download, CheckCircle2 } from "lucide-react";
 
 export function NavigationLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isStandalonePwa, setIsStandalonePwa] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstalled, setIsInstalled] = useState(false);
-  const [showInstallModal, setShowInstallModal] = useState(false);
 
   useEffect(() => {
     const checkStandalone = () => {
@@ -53,23 +51,6 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
-
-  const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      try {
-        await deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === "accepted") {
-          setIsInstalled(true);
-        }
-        setDeferredPrompt(null);
-      } catch (err) {
-        setShowInstallModal(true);
-      }
-    } else {
-      setShowInstallModal(true);
-    }
-  };
 
   const navTabs = [
     { label: "Home", href: "/", isActive: pathname === "/" },
@@ -132,7 +113,7 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
             </nav>
 
             {/* PWA Download Button */}
-            <button
+            {/* <button
               onClick={handleInstallClick}
               className="flex items-center gap-1.5 bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium px-4 py-2 rounded-full text-xs transition-all shadow-xs cursor-pointer active:scale-95 ml-2"
               title="Download & Install App (PWA)"
@@ -149,7 +130,7 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
                   <span className="sm:hidden font-semibold">Install</span>
                 </>
               )}
-            </button>
+            </button> */}
           </div>
         </header>
       )}
@@ -170,57 +151,6 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
         )}
       </main>
 
-      {/* PWA Install Instructions Modal */}
-      {showInstallModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white max-w-sm w-full rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#FF3B30] text-white font-bold flex items-center justify-center text-sm">
-                  L
-                </div>
-                <h3 className="font-bold text-gray-900 text-lg">
-                  Install Livable™ PWA
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowInstallModal(false)}
-                className="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            <p className="text-xs text-gray-600 leading-relaxed">
-              To install this Progressive Web App on your mobile device or computer home screen:
-            </p>
-
-            <div className="space-y-2 text-xs">
-              <div className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-1">
-                <span className="font-bold text-gray-900 block">📱 iPhone / iPad (Safari)</span>
-                <p className="text-gray-600">Tap the <span className="font-bold text-gray-900">Share icon</span> at the bottom, then scroll and select <span className="font-bold text-gray-900">&quot;Add to Home Screen&quot;</span>.</p>
-              </div>
-
-              <div className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-1">
-                <span className="font-bold text-gray-900 block">🤖 Android (Chrome / Brave)</span>
-                <p className="text-gray-600">Tap the <span className="font-bold text-gray-900">3-dots menu</span> top right, then select <span className="font-bold text-gray-900">&quot;Install App&quot;</span> or <span className="font-bold text-gray-900">&quot;Add to Home screen&quot;</span>.</p>
-              </div>
-
-              <div className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-1">
-                <span className="font-bold text-gray-900 block">💻 Desktop (Chrome / Edge)</span>
-                <p className="text-gray-600">Click the <span className="font-bold text-gray-900">Install icon ⊕</span> on the right side of your browser address bar above.</p>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setShowInstallModal(false)}
-              className="w-full bg-[#FF3B30] text-white font-medium py-3 rounded-full text-xs hover:bg-[#e03126] transition-all"
-            >
-              Got it!
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

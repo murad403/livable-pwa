@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Download, Smartphone, Monitor, CheckCircle } from "lucide-react";
+import { Smartphone, Monitor } from "lucide-react";
 import { TabType } from "./BottomNav";
 
 interface DesktopHeaderProps {
@@ -64,54 +64,8 @@ export function DesktopHeader({
 
   return (
     <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-40">
-      {/* Top Notification Banner */}
-      <div className="bg-gray-900 text-white px-4 py-2 text-xs font-medium flex items-center justify-between">
-        <div className="flex items-center gap-2 max-w-7xl mx-auto w-full justify-between">
-          <div className="flex items-center gap-2">
-            <span className="bg-[#FF3B30] text-white px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider">
-              PWA Ready
-            </span>
-            <span className="hidden sm:inline">
-              Install Livable™ on iOS & Android for native app experience.
-            </span>
-          </div>
-
-          <button
-            onClick={handleInstallClick}
-            className="flex items-center gap-1.5 bg-[#DAF566] hover:bg-[#cbf046] text-gray-950 font-bold px-3 py-1 rounded-full text-[11px] transition-all"
-          >
-            {isInstalled ? (
-              <>
-                <CheckCircle className="w-3.5 h-3.5 text-green-700" />
-                <span>Installed</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-3.5 h-3.5" />
-                <span>Download App (PWA)</span>
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#FF3B30] text-white font-bold flex items-center justify-center text-lg">
-            L
-          </div>
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight text-gray-900 leading-none">
-              Livable<span className="text-xs font-normal align-top">™</span>
-            </h1>
-            <p className="text-xs text-gray-500 font-normal mt-0.5">
-              72 Hours in Lisbon Scouting Trip
-            </p>
-          </div>
-        </div>
-
         {/* Tab Links for Desktop Wide View */}
         {isLoggedIn && (
           <nav className="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-full border border-gray-200">
