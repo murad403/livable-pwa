@@ -45,7 +45,7 @@ export default function Page() {
 
         <Link
           href="/today"
-          className="mt-6 w-full py-3.5 px-6 rounded-full border border-titext-title bg-transparent text-title font-medium text-base flex items-center justify-center gap-2 hover:bg-black/5 transition-all group"
+          className="mt-6 w-full py-3.5 px-6 rounded-full border border-title bg-transparent text-title font-medium text-base flex items-center justify-center gap-2 hover:bg-black/5 transition-all group"
         >
           <span>Open Today</span>
           <div className="w-6 h-6 rounded-full bg-title flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
@@ -69,15 +69,15 @@ export default function Page() {
             <span className="text-[13px] font-medium text-gray-800">
               10% Completed
             </span>
-            <div className="w-full h-1.5 bg-titext-title/15 rounded-full overflow-hidden">
-              <div className="h-full w-[10%] bg-titext-title rounded-full" />
+            <div className="w-full h-1.5 bg-title/15 rounded-full overflow-hidden">
+              <div className="h-full w-[10%] bg-title rounded-full" />
             </div>
           </div> */}
         </div>
 
         <Link
           href="/city-tests"
-          className="mt-6 w-full py-3.5 px-6 rounded-full border border-titext-title bg-transparent text-title font-medium text-base flex items-center justify-center gap-2 hover:bg-black/5 transition-all group"
+          className="mt-6 w-full py-3.5 px-6 rounded-full border border-title bg-transparent text-title font-medium text-base flex items-center justify-center gap-2 hover:bg-black/5 transition-all group"
         >
           <span>Open City Tests</span>
           <div className="w-6 h-6 rounded-full bg-title flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">

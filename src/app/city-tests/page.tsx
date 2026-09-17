@@ -120,7 +120,7 @@ export default function CityTestsPage() {
           </p>
 
           <div className="flex justify-end pt-1">
-            <div className="size-10 rounded-full bg-titext-title flex items-center justify-center bg-title text-white shadow-xs">
+            <div className="size-10 rounded-full flex items-center justify-center bg-title text-white shadow-xs">
               <ChevronRight className="size-5 stroke-[2.5]" />
             </div>
           </div>

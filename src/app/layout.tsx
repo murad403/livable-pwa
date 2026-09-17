@@ -60,7 +60,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className="h-full bg-gray-100 text-gray-900 antialiased selection:bg-red-500 selection:text-white">
+      <body className="h-full bg-gray-100 text-title antialiased selection:bg-red-500 selection:text-white">
         <ReduxProvider>
           <NavigationLayout>{children}</NavigationLayout>
           <Toaster position="top-center" richColors />
