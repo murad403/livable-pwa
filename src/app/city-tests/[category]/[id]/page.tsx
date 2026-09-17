@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { useGetCityTestDetailQuery, useSaveCityTestMutation } from "@/redux/api/api";
+import { Button } from "@/components/ui/button";
 
 interface TestDetailPageProps {
   params: Promise<{ category: string; id: string }>;
@@ -66,7 +67,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
         <p className="text-sm font-medium text-red-600">Failed to load test details.</p>
         <button
           onClick={() => refetch()}
-          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-[#e03126] transition-all cursor-pointer"
+          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-primary-hover transition-all cursor-pointer"
         >
           Try Again
         </button>
@@ -89,24 +90,24 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
       {/* Back Button */}
       <Link
         href={`/city-tests/${catKey}`}
-        className="w-10 h-10 rounded-full bg-[#EFEFEF] flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors"
+        className="w-10 h-10 rounded-full bg-[#EFEFEF] flex items-center justify-center text-title hover:bg-gray-200 transition-colors"
       >
         <ArrowLeft className="w-5 h-5 stroke-2" />
       </Link>
 
       {/* Category breadcrumb & Title */}
       <div>
-        <span className="text-[13px] font-medium text-gray-600 capitalize">
+        <span className="text-[13px] font-medium text-title capitalize">
           City Test • {testData.category_id || catKey}
         </span>
-        <h1 className="text-[38px] leading-tight font-bold tracking-tight text-gray-900 mt-1">
+        <h1 className="text-[38px] leading-tight font-bold tracking-tight text-title mt-1">
           {testData.title}
         </h1>
       </div>
 
       {/* Description */}
       {testData.short_description && (
-        <div className="space-y-4 text-[15px] leading-relaxed text-gray-800 font-normal">
+        <div className="space-y-4 text-[15px] leading-relaxed text-title font-normal">
           <p>{testData.short_description}</p>
         </div>
       )}
@@ -119,7 +120,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
               href={testData.google_maps_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[14px] text-gray-900 underline font-medium hover:text-black"
+              className="flex items-center gap-1.5 text-[14px] text-title underline font-medium hover:text-black"
             >
               <span>View on Google Maps</span>
               <ArrowRight className="w-3.5 h-3.5 no-underline" />
@@ -132,7 +133,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[14px] text-gray-900 underline font-medium hover:text-black"
+              className="flex items-center gap-1.5 text-[14px] text-title underline font-medium hover:text-black"
             >
               <span>{link.label}</span>
               <ArrowRight className="w-3.5 h-3.5 no-underline" />
@@ -144,17 +145,17 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
       {/* Post-Discovery Notes Form */}
       <div className="space-y-4 pt-2">
         <div>
-          <h2 className="text-[22px] font-semibold tracking-tight text-gray-900">
+          <h2 className="text-[22px] font-semibold tracking-tight text-title">
             Post-Discovery Notes
           </h2>
-          <p className="text-[14px] text-gray-600 font-normal mt-1">
+          <p className="text-[14px] text-title font-normal mt-1">
             When you finish, jot down a few quick impressions.
           </p>
         </div>
 
         {/* Field 1: Notes & Observations */}
         <div className="space-y-2">
-          <label className="text-[14px] font-medium text-gray-800 block">
+          <label className="text-[14px] font-medium text-title block">
             Notes & Observations
           </label>
 
@@ -176,13 +177,13 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
             value={notesText}
             onChange={(e) => setNotesText(e.target.value)}
             placeholder={notesPlaceholder}
-            className="w-full h-32 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[14px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
+            className="w-full h-32 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[14px] text-title placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
           />
         </div>
 
         {/* Field 2: Questions for Liv Team */}
         <div className="space-y-2 pt-2">
-          <label className="text-[14px] font-medium text-gray-800 block">
+          <label className="text-[14px] font-medium text-title block">
             Questions for the Liv Team (Optional):
           </label>
 
@@ -190,7 +191,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
           {testData.question_prompts && testData.question_prompts.length > 0 && (
             <div className="space-y-1 py-1">
               {testData.question_prompts.map((prompt, idx) => (
-                <div key={idx} className="text-[12.5px] text-gray-600 flex items-start gap-1.5">
+                <div key={idx} className="text-[12.5px] text-title flex items-start gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] shrink-0 mt-1.5" />
                   <span>{prompt}</span>
                 </div>
@@ -202,16 +203,15 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
             value={questionsText}
             onChange={(e) => setQuestionsText(e.target.value)}
             placeholder={questionsPlaceholder}
-            className="w-full h-28 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[13.5px] leading-relaxed text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
+            className="w-full h-28 p-4 bg-[#F8F9FA] border border-gray-100 rounded-[20px] text-[13.5px] leading-relaxed text-title placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] resize-none"
           />
         </div>
 
         {/* Complete Button */}
         <div className="pt-4">
-          <button
+          <Button
             onClick={handleCompleteTest}
             disabled={isSaving}
-            className="w-full bg-[#FF3B30] hover:bg-[#e03126] disabled:opacity-75 text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 uppercase transition-all shadow-xs cursor-pointer"
           >
             {isSaving ? (
               <>
@@ -226,7 +226,7 @@ export default function TestDetailPage({ params }: TestDetailPageProps) {
             ) : (
               <span>COMPLETE TEST</span>
             )}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
