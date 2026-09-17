@@ -85,16 +85,7 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
       {/* Website Top Header Bar */}
       {!isAuthPage && (
         <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#FF3B30] text-white font-bold flex items-center justify-center text-base">
-                L
-              </div>
-              <h1 className="text-xl font-semibold tracking-tight text-gray-900 leading-none">
-                Livable<span className="text-xs font-normal align-top">™</span>
-              </h1>
-            </Link>
-
+          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-center">
             {/* Navigation Links */}
             <nav className="flex items-center gap-1 bg-gray-100 p-1 rounded-full border border-gray-200">
               {navTabs.map((tab) => (
@@ -111,26 +102,6 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               ))}
             </nav>
-
-            {/* PWA Download Button */}
-            {/* <button
-              onClick={handleInstallClick}
-              className="flex items-center gap-1.5 bg-[#FF3B30] hover:bg-[#e03126] text-white font-medium px-4 py-2 rounded-full text-xs transition-all shadow-xs cursor-pointer active:scale-95 ml-2"
-              title="Download & Install App (PWA)"
-            >
-              {isInstalled ? (
-                <>
-                  <CheckCircle2 className="w-4 h-4 text-white" />
-                  <span>App Installed</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 stroke-[2.2]" />
-                  <span className="hidden sm:inline font-semibold">Install App (PWA)</span>
-                  <span className="sm:hidden font-semibold">Install</span>
-                </>
-              )}
-            </button> */}
           </div>
         </header>
       )}

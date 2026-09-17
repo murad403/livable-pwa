@@ -33,7 +33,7 @@ export default function Page() {
       </div>
 
       {/* Today Card */}
-      <div className="bg-[#DAF566] rounded-[28px] p-6 text-gray-900 flex flex-col justify-between shadow-sm">
+      <div className="bg-brand-lime rounded-[28px] p-6 text-gray-900 flex flex-col justify-between shadow-sm">
         <div>
           <h2 className="text-[26px] font-semibold tracking-tight text-gray-900 mb-2">
             Today

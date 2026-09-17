@@ -54,7 +54,7 @@ export default function CityTestsPage() {
         {/* Micro-Social Free Time Card */}
         <Link
           href="/city-tests/free_time"
-          className="bg-[#DFBDFF] text-gray-950 rounded-[28px] p-6 block hover:brightness-[0.98] transition-all shadow-xs relative flex-col justify-between min-h-40"
+          className="bg-brand-purple text-gray-950 rounded-[28px] p-6 block hover:brightness-[0.98] transition-all shadow-xs relative flex-col justify-between min-h-40"
         >
           <div>
             <div className="flex items-start justify-between">
@@ -76,7 +76,7 @@ export default function CityTestsPage() {
         {/* Practical Infrastructure Card */}
         <Link
           href="/city-tests/infrastructure"
-          className="bg-[#DAF566] text-gray-950 rounded-[28px] p-6 block hover:brightness-[0.98] transition-all shadow-xs relative flex-col justify-between min-h-40"
+          className="bg-brand-lime text-gray-950 rounded-[28px] p-6 block hover:brightness-[0.98] transition-all shadow-xs relative flex-col justify-between min-h-40"
         >
           <div>
             <div className="flex items-start justify-between">

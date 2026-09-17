@@ -105,7 +105,7 @@ export default function ProfilePage() {
         <p className="text-sm font-medium text-red-600">Failed to load profile details.</p>
         <button
           onClick={() => refetch()}
-          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-[#e03126] transition-all"
+          className="px-4 py-2 bg-[#FF3B30] text-white text-xs font-semibold rounded-full hover:bg-primary-hover transition-all"
         >
           Try Again
         </button>
@@ -289,7 +289,7 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={isUpdating}
-              className="px-5 py-2.5 rounded-full bg-[#FF3B30] hover:bg-[#e03126] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-xs disabled:opacity-70 cursor-pointer"
+              className="px-5 py-2.5 rounded-full bg-[#FF3B30] hover:bg-primary-hover text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-xs disabled:opacity-70 cursor-pointer"
             >
               {isUpdating ? (
                 <>
