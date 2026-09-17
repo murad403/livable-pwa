@@ -155,8 +155,8 @@ export function NavigationLayout({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Main Website Content Container */}
-      <main className={`flex-1 max-w-md w-full mx-auto bg-white rounded-none sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative ${!isAuthPage ? "my-0 sm:my-6 pb-20 sm:pb-0" : "my-auto"}`}>
-        <div className="flex-1 flex flex-col py-2">
+      <main className={`max-w-md w-full mx-auto bg-white rounded-none sm:rounded-3xl sm:border border-gray-200 sm:shadow-sm overflow-hidden flex flex-col relative ${!isAuthPage ? "flex-1 my-0 sm:my-6 pb-20 sm:pb-0" : "my-auto flex-none"}`}>
+        <div className={`flex flex-col ${!isAuthPage ? "flex-1 py-2" : ""}`}>
           {children}
         </div>
 

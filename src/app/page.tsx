@@ -55,7 +55,7 @@ export default function Page() {
       </div>
 
       {/* City Tests Card */}
-      <div className="bg-[#DFBDFF] rounded-[28px] p-6 text-gray-900 flex flex-col justify-between shadow-sm">
+      <div className="bg-brand-purple rounded-[28px] p-6 text-gray-900 flex flex-col justify-between shadow-sm">
         <div>
           <h2 className="text-[26px] font-semibold tracking-tight text-gray-900 mb-2">
             City Tests
@@ -65,14 +65,14 @@ export default function Page() {
           </p>
 
           {/* Progress Section */}
-          <div className="mt-5 space-y-1.5">
+          {/* <div className="mt-5 space-y-1.5">
             <span className="text-[13px] font-medium text-gray-800">
               10% Completed
             </span>
             <div className="w-full h-1.5 bg-gray-900/15 rounded-full overflow-hidden">
               <div className="h-full w-[10%] bg-gray-950 rounded-full" />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <Link

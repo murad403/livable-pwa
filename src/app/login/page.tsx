@@ -17,7 +17,6 @@ const loginSchema = z.object({
   password: z
     .string()
     .min(1, "Password is required")
-    .min(6, "Password must be at least 6 characters"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -31,10 +30,10 @@ export default function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      // email: "mahmudtasin028@gmail.com",
-      // password: "newpassword123",
+      // email: "",
+      // password: "",
+      email: "mahmudtasin028@gmail.com",
+      password: "newpassword123",
     },
   });
 
@@ -62,27 +61,27 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 pt-12 pb-8 bg-white max-w-md mx-auto w-full">
+    <div className="flex flex-col px-6 py-8 sm:py-10 bg-white max-w-md mx-auto w-full gap-6 sm:gap-8">
       {/* Top Header Section */}
-      <div className="flex flex-col items-center text-center mt-6">
+      <div className="flex flex-col items-center text-center">
         {/* Brand Name */}
         <h2 className="text-3xl font-semibold tracking-tight text-title flex items-start gap-0.5">
           Livable™
         </h2>
 
         {/* Hero Title */}
-        <h1 className="text-[38px] leading-tight font-normal tracking-tight text-title mt-10">
+        <h1 className="text-[32px] sm:text-[36px] leading-tight font-normal tracking-tight text-title mt-4 sm:mt-6">
           72 Hours in Lisbon
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg text-title mt-3 font-normal">
+        <p className="text-base sm:text-lg text-title mt-2 font-normal">
           Your scouting trip starts here.
         </p>
       </div>
 
       {/* Form Section */}
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-5 my-auto pt-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4 sm:space-y-5">
         {apiError && (
           <div className="p-3.5 bg-red-50 border border-red-200 rounded-[18px] text-red-600 text-xs flex items-center gap-2 font-medium animate-in fade-in-50">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
