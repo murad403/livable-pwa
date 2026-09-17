@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useLoginMutation } from "@/redux/api/api";
 import { saveToken } from "@/utils/auth";
+import { Button } from "@/components/ui/button";
 
 const loginSchema = z.object({
   email: z
@@ -65,17 +66,17 @@ export default function LoginPage() {
       {/* Top Header Section */}
       <div className="flex flex-col items-center text-center mt-6">
         {/* Brand Name */}
-        <h2 className="text-3xl font-semibold tracking-tight text-gray-900 flex items-start gap-0.5">
-          Livable<span className="text-sm font-normal align-top leading-none mt-1">™</span>
+        <h2 className="text-3xl font-semibold tracking-tight text-title flex items-start gap-0.5">
+          Livable™
         </h2>
 
         {/* Hero Title */}
-        <h1 className="text-[38px] leading-tight font-normal tracking-tight text-gray-900 mt-10">
+        <h1 className="text-[38px] leading-tight font-normal tracking-tight text-title mt-10">
           72 Hours in Lisbon
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg text-gray-800 mt-3 font-normal">
+        <p className="text-lg text-title mt-3 font-normal">
           Your scouting trip starts here.
         </p>
       </div>
@@ -90,14 +91,14 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label className="block text-[15px] font-medium text-gray-800 mb-2">
+          <label className="block text-[15px] font-medium text-title mb-2">
             Email address
           </label>
           <input
             type="email"
             {...register("email")}
             disabled={isLoading}
-            className={`w-full px-4 py-3.5 border rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-200"
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-200"
               }`}
             placeholder="your@email.com"
           />
@@ -109,14 +110,14 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label className="block text-[15px] font-medium text-gray-800 mb-2">
+          <label className="block text-[15px] font-medium text-title mb-2">
             Password
           </label>
           <input
             type="password"
             {...register("password")}
             disabled={isLoading}
-            className={`w-full px-4 py-3.5 border rounded-[18px] text-gray-800 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest ${errors.password ? "border-red-500 bg-red-50/20" : "border-gray-200"
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest ${errors.password ? "border-red-500 bg-red-50/20" : "border-gray-200"
               }`}
             placeholder="••••••••"
           />
@@ -127,10 +128,10 @@ export default function LoginPage() {
           )}
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full mt-6 bg-[#FF3B30] hover:bg-[#e03126] disabled:opacity-75 disabled:cursor-not-allowed text-white font-medium text-[15px] tracking-wider py-4 px-6 rounded-full flex items-center justify-center gap-2 transition-all transform active:scale-[0.98] shadow-sm uppercase cursor-pointer"
+          className="w-full"
         >
           {isLoading ? (
             <>
@@ -143,7 +144,7 @@ export default function LoginPage() {
               <ArrowRight className="w-4 h-4 stroke-[2.5]" />
             </>
           )}
-        </button>
+        </Button>
       </form>
     </div>
   );

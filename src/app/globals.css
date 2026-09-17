@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #FF3B30;
+  --color-primary-hover: #E03126;
+  --color-brand-red: #FF3B30;
+  --color-brand-lime: #DAF566;
+  --color-brand-purple: #DFBDFF;
+  --color-brand-purple-light: #E3C7FC;
+  --color-brand-purple-circle: #D4B3FF;
+  --color-title: #111111;
+  --color-ring: #FF3B30;
+  --color-title: #282828;
+}
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -9,6 +22,9 @@
     --color-brand-purple: #DFBDFF;
     --color-brand-purple-light: #E3C7FC;
     --color-brand-purple-circle: #D4B3FF;
+    --primary: #FF3B30;
+    --primary-hover: #E03126;
+    --title: #111111;
   }
 
   body {
@@ -33,4 +49,8 @@
 /* Mobile device mockup frame */
 .iphone-frame {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 12px #1e1e24;
+}
+
+.customPill {
+  border-radius: 13px / 60%;
 }
