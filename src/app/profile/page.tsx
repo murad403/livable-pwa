@@ -117,14 +117,14 @@ export default function ProfilePage() {
     <div className="flex-1 flex flex-col px-5 pt-4 pb-8 bg-white max-w-md mx-auto w-full space-y-6">
       {/* Title & Edit Toggle Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-[40px] leading-tight font-normal tracking-tight text-gray-900">
+        <h1 className="text-4xl leading-tight font-medium tracking-tight text-title">
           Profile
         </h1>
 
         {!isEditing ? (
           <button
             onClick={() => setIsEditing(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-title text-xs font-medium transition-all cursor-pointer"
             title="Edit Profile"
           >
             <Pencil className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export default function ProfilePage() {
             />
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-[19px] font-semibold text-gray-900 leading-snug truncate">
+            <h2 className="text-[19px] font-semibold text-title leading-snug truncate">
               {fullName || "Anonymous User"}
             </h2>
             <p className="text-[14px] text-gray-500 font-normal truncate mt-0.5">
@@ -226,7 +226,7 @@ export default function ProfilePage() {
           {/* First Name & Last Name */}
           <div className="grid grid-cols-2 gap-3 pt-2">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-title mb-1">
                 First Name
               </label>
               <input
@@ -235,13 +235,13 @@ export default function ProfilePage() {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 disabled={isUpdating}
-                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-gray-200 rounded-2xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] transition-all"
+                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-gray-200 rounded-2xl text-xs font-medium text-title focus:outline-none focus:ring-2 focus:ring-[#FF3B30] transition-all"
                 placeholder="First Name"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-title mb-1">
                 Last Name
               </label>
               <input
@@ -250,7 +250,7 @@ export default function ProfilePage() {
                 onChange={(e) => setLastName(e.target.value)}
                 required
                 disabled={isUpdating}
-                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-gray-200 rounded-2xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FF3B30] transition-all"
+                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-gray-200 rounded-2xl text-xs font-medium text-title focus:outline-none focus:ring-2 focus:ring-[#FF3B30] transition-all"
                 placeholder="Last Name"
               />
             </div>
@@ -259,7 +259,7 @@ export default function ProfilePage() {
           {/* Email (Disabled / Non-editable) */}
           <div className="pt-1">
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-medium text-gray-700">
+              <label className="block text-xs font-medium text-title">
                 Email Address
               </label>
               <span className="text-[10px] text-gray-400 flex items-center gap-1 font-medium">
@@ -282,7 +282,7 @@ export default function ProfilePage() {
               type="button"
               onClick={handleCancel}
               disabled={isUpdating}
-              className="px-4 py-2.5 rounded-full border border-gray-200 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+              className="px-4 py-2.5 rounded-full border border-gray-200 text-xs font-medium text-title hover:bg-gray-50 transition-all cursor-pointer"
             >
               Cancel
             </button>
@@ -311,15 +311,15 @@ export default function ProfilePage() {
 
       {/* Current Trip Section */}
       <div className="space-y-4">
-        <h3 className="text-[20px] font-medium text-gray-900 tracking-tight">
+        <h3 className="text-[20px] font-medium text-title tracking-tight">
           Current Trip
         </h3>
 
         <div className="grid grid-cols-[100px_1fr] gap-y-3.5 text-[15px]">
-          <span className="text-gray-700 font-normal">City</span>
-          <span className="text-gray-900 font-normal">{currentTrip?.city || "Lisbon, Portugal"}</span>
-          <span className="text-gray-700 font-normal">Host</span>
-          <span className="text-gray-900 font-normal">{currentTrip?.guide_name || "Ana Ferreira"}</span>
+          <span className="text-title font-normal">City</span>
+          <span className="text-title font-normal">{currentTrip?.city || "Lisbon, Portugal"}</span>
+          <span className="text-title font-normal">Host</span>
+          <span className="text-title font-normal">{currentTrip?.guide_name || "Ana Ferreira"}</span>
         </div>
       </div>
 
@@ -327,15 +327,15 @@ export default function ProfilePage() {
 
       {/* Livable™ Contact Section */}
       <div className="space-y-4">
-        <h3 className="text-[20px] font-medium text-gray-900 tracking-tight">
+        <h3 className="text-[20px] font-medium text-title tracking-tight">
           Livable™ Contact
         </h3>
 
         <div className="grid grid-cols-[100px_1fr] gap-y-3.5 text-[15px]">
-          <span className="text-gray-700 font-normal">Email</span>
+          <span className="text-title font-normal">Email</span>
           <a
             href="mailto:team@livable.com"
-            className="text-gray-900 underline font-normal hover:text-black"
+            className="text-title underline font-normal hover:text-black"
           >
             team@livable.com
           </a>
