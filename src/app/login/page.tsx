@@ -61,21 +61,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col px-6 py-8 sm:py-10 bg-white max-w-md mx-auto w-full gap-6 sm:gap-8">
+    <div className="flex flex-col px-6 justify-center items-center min-h-screen py-8 sm:py-10 bg-white max-w-md mx-auto w-full gap-6 sm:gap-8">
       {/* Top Header Section */}
       <div className="flex flex-col items-center text-center">
         {/* Brand Name */}
-        <h2 className="text-3xl font-semibold tracking-tight text-title flex items-start gap-0.5">
+        <h2 className="text-4xl tracking-tight text-title flex items-start gap-0.5 font-satoshi">
           Livable™
         </h2>
 
         {/* Hero Title */}
-        <h1 className="text-[32px] sm:text-[36px] leading-tight font-normal tracking-tight text-title mt-4 sm:mt-6">
+        <h1 className="text-[40px] leading-tight font-normal tracking-tight text-title mt-4 sm:mt-6">
           72 Hours in Lisbon
         </h1>
 
         {/* Subtitle */}
-        <p className="text-base sm:text-lg text-title mt-2 font-normal">
+        <p className="text-xl text-title mt-2 font-normal">
           Your scouting trip starts here.
         </p>
       </div>
@@ -90,14 +90,14 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label className="block text-[15px] font-medium text-title mb-2">
+          <label className="block text-base font-medium text-title mb-2">
             Email address
           </label>
           <input
             type="email"
             {...register("email")}
             disabled={isLoading}
-            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-200"
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-base focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-200"
               }`}
             placeholder="your@email.com"
           />
@@ -109,14 +109,14 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label className="block text-[15px] font-medium text-title mb-2">
+          <label className="block text-base font-medium text-title mb-2">
             Password
           </label>
           <input
             type="password"
             {...register("password")}
             disabled={isLoading}
-            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-[15px] focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest ${errors.password ? "border-red-500 bg-red-50/20" : "border-gray-200"
+            className={`w-full px-4 py-3.5 border rounded-[18px] text-title text-base focus:outline-none focus:ring-2 focus:ring-[#FF3B30] focus:border-transparent transition-all bg-white tracking-widest ${errors.password ? "border-red-500 bg-red-50/20" : "border-gray-200"
               }`}
             placeholder="••••••••"
           />

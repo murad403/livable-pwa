@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: var(--font-neue-montreal), "Neue Montreal", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-satoshi: "Satoshi", sans-serif;
   --color-primary: #FF3B30;
   --color-primary-hover: #E03126;
   --color-brand-red: #FF3B30;
@@ -11,6 +12,10 @@
   --color-brand-purple-circle: #D4B3FF;
   --color-title: #282828;
   --color-ring: #FF3B30;
+}
+
+.font-satoshi {
+  font-family: "Satoshi", sans-serif;
 }
 
 @layer base {
